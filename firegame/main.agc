@@ -2,26 +2,33 @@
 // Project: firegame 
 // Created: 2019-08-23
 
-// show all errors
-SetErrorMode(2)
+#include "_init.agc"
+gosub _init
 
-// set window properties
-SetWindowTitle( "firegame" )
-SetWindowSize( 1024, 768, 0 )
-SetWindowAllowResize( 1 ) // allow the user to resize the window
-
-// set display properties
-SetVirtualResolution( 1024, 768 ) // doesn't have to match the window
-SetOrientationAllowed( 1, 1, 1, 1 ) // allow both portrait and landscape on mobile devices
-SetSyncRate( 60, 0 ) // 30fps instead of 60 to save battery
-SetScissor( 0,0,0,0 ) // use the maximum available screen space, no black borders
-UseNewDefaultFonts( 1 ) // since version 2.0.22 we can use nicer default fonts
+#include "_input.agc"
+gosub _input
 
 
+a as integer
 
 _mainloop:
-    
 
-    Print( ScreenFPS() )
-    Sync()
+	for a = 1 to 100
+		DrawLine( rnd_x(), rnd_x(), rnd_y(), rnd_y(), random(0,255), random(0,255), random(0,255) ) 
+	next
+
+	input_keyboard()
+	Sync()
+    
 goto _mainloop
+
+
+function rnd_y()
+	y as integer
+	y = random (0, getvirtualHeight())
+endfunction y
+
+function rnd_x()
+	x as integer
+	x = random (0, getvirtualWidth())
+endfunction x
